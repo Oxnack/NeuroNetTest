@@ -17,17 +17,21 @@ public class InputNeuro : MonoBehaviour
     public float distanceFinish;
     public float height;
 
+    private void Start()
+    {
+         _finish = GameObject.FindGameObjectWithTag("Finish");
+    }
 
 
     private void Update()
     {
         Quaternion worldRotation = _left.transform.rotation;
-        Quaternion parentWorldRotation = transform.parent.rotation;
+        Quaternion parentWorldRotation = transform.rotation;
         Quaternion localRotation = Quaternion.Inverse(parentWorldRotation) * worldRotation;
         leftRotaion = localRotation.eulerAngles;
 
         worldRotation = _right.transform.rotation;
-        parentWorldRotation = transform.parent.rotation;
+        parentWorldRotation = transform.rotation;
         localRotation = Quaternion.Inverse(parentWorldRotation) * worldRotation;
         rightRotaion = localRotation.eulerAngles;
 
