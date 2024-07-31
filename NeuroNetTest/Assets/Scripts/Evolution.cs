@@ -15,11 +15,13 @@ public class Evolution : MonoBehaviour
 
     private void Start()
     {
+        generation = _Anton.GetComponent<Model_1>().generation;
         for (int i = 0; i < _Antons.Length; i++)
         {
             _Antons[i] = Instantiate(_Anton, new Vector3(-8, 2.5f, -11.5f), new Quaternion(0, 0, 0, 0));
         }
         StartCoroutine(Eteration());
+        Time.timeScale = 1f;
     }
 
     private void MaxObj()
@@ -28,6 +30,7 @@ public class Evolution : MonoBehaviour
         GameObject bestObj = FindObjectWithMinDistance();
         _bestMass1 = bestObj.GetComponent<Model_1>()._mass1;
         _bestMass2 = bestObj.GetComponent<Model_1>()._mass2;
+        _Anton.GetComponent<Model_1>().generation = generation;
 
         foreach (GameObject obj in _Antons)
         {
@@ -59,7 +62,7 @@ public class Evolution : MonoBehaviour
                 if (inputNeuro != null) // Проверяем, что компонент существует
                 {
                     float distance = inputNeuro.distanceFinish;
-                    if (distance < minDistance) // Ищем минимальное значение
+                    if (distance < minDistance && inputNeuro.life != false) // Ищем минимальное значение
                     {
                         minDistance = distance;
                         minObject = _Antons[i];

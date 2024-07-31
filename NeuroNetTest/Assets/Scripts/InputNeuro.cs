@@ -17,6 +17,8 @@ public class InputNeuro : MonoBehaviour
     public float distanceFinish;
     public float height;
 
+    public bool life = true;
+
     private void Start()
     {
          _finish = GameObject.FindGameObjectWithTag("Finish");
