@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Door
+  - Button
+  - Qute
   layers:
   - Default
   - TransparentFX

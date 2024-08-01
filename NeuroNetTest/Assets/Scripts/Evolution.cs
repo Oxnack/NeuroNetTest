@@ -6,22 +6,32 @@ public class Evolution : MonoBehaviour
     [SerializeField] private GameObject _Anton;
     [SerializeField] private float _time = 5f;
 
-    private GameObject[] _Antons = new GameObject[5];
+    private GameObject[] _Antons = new GameObject[20];
 
-    private float[] _bestMass1 = new float[5];
+    private float[] _bestMass1 = new float[4];
     private float[] _bestMass2 = new float[2];
+
+    private JsonSave _jsonSave = new JsonSave();
 
     public int generation = 1;
 
     private void Start()
     {
+        if (_jsonSave.LoadData() != null)
+        {
+            NeuroNetData data = _jsonSave.LoadData();
+            _bestMass1 = data.bestMass1;
+            _bestMass2 = data.bestMass2;
+            generation = data.generation;
+        }
+
         generation = _Anton.GetComponent<Model_1>().generation;
         for (int i = 0; i < _Antons.Length; i++)
         {
             _Antons[i] = Instantiate(_Anton, new Vector3(-8, 2.5f, -11.5f), new Quaternion(0, 0, 0, 0));
         }
         StartCoroutine(Eteration());
-        Time.timeScale = 1f;
+        Time.timeScale = 3f;
     }
 
     private void MaxObj()
@@ -30,7 +40,8 @@ public class Evolution : MonoBehaviour
         GameObject bestObj = FindObjectWithMinDistance();
         _bestMass1 = bestObj.GetComponent<Model_1>()._mass1;
         _bestMass2 = bestObj.GetComponent<Model_1>()._mass2;
-        _Anton.GetComponent<Model_1>().generation = generation;
+
+        _jsonSave.SaveData(new NeuroNetData {bestMass1 = _bestMass1, bestMass2 = _bestMass2, generation = this.generation});
 
         foreach (GameObject obj in _Antons)
         {
@@ -39,7 +50,7 @@ public class Evolution : MonoBehaviour
 
         for (int i = 0; i < _Antons.Length; i++)
         {
-            GameObject anton = _Anton;
+            GameObject anton = Instantiate(_Anton);
             anton.GetComponent<Model_1>()._mass1 = _bestMass1;
             anton.GetComponent<Model_1>()._mass2 = _bestMass2;
             anton.GetComponent<Model_1>().generation = generation;

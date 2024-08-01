@@ -80,6 +80,15 @@ public class Model_1 : MonoBehaviour
         for (int i = 0; i < array.Length; i++)
         {
             array[i] = Random.Range(array[i] - 1f/generation, array[i] + 1f/generation);
+
+            if (array[i] < -1)
+            {
+                array[i] = -1;
+            }
+            else if (array[i] > 1)
+            {
+                array[i] = 1;
+            }
         }
     }
 }
