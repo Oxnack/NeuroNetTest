@@ -40,8 +40,8 @@ public class JsonSave : MonoBehaviour
 [System.Serializable]
 public class NeuroNetData
 {
-    public float[] bestMass1 = new float[6];
-    public float[] bestMass2 = new float[2];
+    public float[] bestMass1 = new float[8];
+    public float[] bestMass2 = new float[4];
 
     public int generation = 1; 
 }
